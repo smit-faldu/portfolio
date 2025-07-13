@@ -1,0 +1,89 @@
+/* Enhanced background styles */
+
+:root {
+    --bg-gradient-from: #1a1a1a;
+    --bg-gradient-to: #2a2a2a;
+    --blob-color-1: rgba(242, 242, 242, 0.2);
+    --blob-color-2: rgba(234, 228, 213, 0.25);
+    --blob-color-3: rgba(182, 176, 159, 0.3);
+    --blob-color-4: rgba(216, 208, 192, 0.25);
+    --vignette-color: rgba(0, 0, 0, 0.8);
+}
+
+.enhanced-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(135deg, var(--bg-gradient-from) 0%, var(--bg-gradient-to) 100%);
+    overflow: hidden;
+}
+
+.enhanced-background::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    box-shadow: inset 0 0 150px 60px var(--vignette-color);
+}
+
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    opacity: 1;
+}
+
+.blob-1 {
+    width: 40vh;
+    height: 40vh;
+    left: 10%;
+    top: 20%;
+    background-color: var(--blob-color-1);
+}
+
+.blob-2 {
+    width: 35vh;
+    height: 35vh;
+    right: 15%;
+    top: 10%;
+    background-color: var(--blob-color-2);
+}
+
+.blob-3 {
+    width: 45vh;
+    height: 45vh;
+    left: 25%;
+    bottom: 15%;
+    background-color: var(--blob-color-3);
+}
+
+.blob-4 {
+    width: 30vh;
+    height: 30vh;
+    right: 25%;
+    bottom: 20%;
+    background-color: var(--blob-color-4);
+}
+
+.blob-5 {
+    width: 25vh;
+    height: 25vh;
+    left: 40%;
+    top: 40%;
+    background-color: var(--blob-color-1);
+}
+
+/* Mouse glow effect */
+.mouse-glow {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(234, 228, 213, 0.3) 0%, rgba(0, 0, 0, 0) 70%);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    mix-blend-mode: screen;
+}

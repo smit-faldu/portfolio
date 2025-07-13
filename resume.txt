@@ -1,0 +1,96 @@
+SMIT FALDU
+Ahmedabad, Gujarat, India • +91 8140950661• smitfaldu2006@gmail.com
+ linkedin: https://www.linkedin.com/in/smit-faldu-450b9a23a/ 
+ github:https://github.com/smit-faldu 
+ huggingface: https://huggingface.co/smit-faldu
+
+
+SUMMARY
+AI/ML Engineer with hands-on experience in NLP, LLMs (Gemini, OpenAI, LLaMA), and RAG pipelines
+using LangChain, LangGraph, FAISS, and Pinecone. Skilled in developing AI automation apps with
+FastAPI, Flask, and deploying them on GCP. Integrated Google APIs like Gmail and Slides for smart
+productivity tools. Proficient in building ML/DL models using TensorFlow and leveraging Hugging
+Face models for real-world use cases. Frontend development experience with React for UI
+integration.
+
+WORK EXPERIENCE
+
+AI/ML Intern, VertxAI Mar-2025 - Present
+
+Developed AI automation pipelines using Google Gemini, LangChain, LangGraph, and Hugging
+Face for founder-investor matching and email outreach.
+
+Built FastAPI-based backend services for scalable LLM-powered applications, deployed on
+GCP.
+
+Integrated Gmail and Google Slides APIs to auto-generate and analyze pitch decks for
+founders.
+
+Contributed to end-to-end systems for intelligent fundraising tools including pitch deck
+generation, analytics, and communication workflows.
+PROFESSIONAL SKILLS
+
+
+Languages & Frameworks : Python, LangChain, LangGraph, Hugging Face, FastAPI,
+Flask, TensorFlow, JavaScript, React.js, TailwindCSS, Bootstrap
+
+Skills : Machine Learning, Deep Learning, Natural Language Processing (NLP),
+Generative AI, Open-Source LLMs (Gemini, LLaMA), RAG (Retrieval-Augmented
+Generation), AI Automation, Vector Databases (FAISS, Pinecone), Google Cloud Platform
+(GCP), Google APIs (Gmail, Slides), Git, GitHub, MongoDB
+EDUCATION
+
+
+SAL INSTITUTE OF TECH. AND ENG. May-2024 - Present
+RESEARCH (GTU)
+• Currently pursuing Bachelor of Engineering (B.E.) in Computer Engineering
+
+
+GOVERNMENT POLYTECHNIC. AUG-2021 – MAY-2024
+AHEMEDABD (GTU)
+• Completed Diploma in Computer Engineering
+
+PROJECTS
+
+AI Email Automation
+• Tech: FastAPI, Gemini (LLM), LangChain, Google OAuth, Gmail API, MongoDB, GCP
+• Developed an AI-powered email automation platform using FastAPI, Gemini, and LangChain to
+generate personalized investor outreach emails.
+• Integrated Google OAuth and Gmail API for secure sending, drafting, and flexible scheduling (specific
+time or N emails/day).
+• Implemented reply fetching, batching logic, and user-specific campaign tracking with MongoDB for
+robust email management.
+• Deployed the full-stack system on Google Cloud for scalable access, reliability, and real-time
+performance.
+
+Founder–Investor Matching AI System
+• Tech: Gemini, Hugging Face, LangChain, FastAPI, FAISS, MongoDB, GCP
+• Developed a RAG-based AI platform for matching startup founders with relevant investors using
+Gemini and Hugging Face models.
+• Utilized LangChain and FastAPI to build the backend workflow and RESTful interface for processing
+founder and investor profiles.
+• Implemented vector embeddings and similarity search using FAISS to generate intelligent, ranked
+investor matches.
+• Stored match results in MongoDB and deployed the complete system on Google Cloud Platform for
+scalability and reliability.
+
+Pitch Deck Analyzer
+• Tech: LangGraph, Gemini, LangChain, FastAPI, MongoDB, GCP
+• Built a FastAPI-based pitch deck analysis tool that accepts PDF input and leverages Gemini to extract
+key insights from startup presentations.
+• Designed a LangGraph workflow to generate multi-layered analysis, including overall ratings,
+problem–solution evaluation, and executive summaries.
+• Integrated strengths and weaknesses assessment along with improvement suggestions using
+structured prompting via LangChain.
+• Stored analysis reports in MongoDB and deployed the full system on Google Cloud for scalable and
+efficient access.
+
+AI-powered Mock Pitch Voice Agent
+• Tech: Gemini, LangGraph, FastAPI, Whisper, Google Cloud TTS, MongoDB, GCP
+• Developed a voice-based AI agent to help founders practice mock pitches with realistic investor-style
+feedback.
+• Used Whisper for speech recognition and Gemini + LangGraph to analyze pitch content and delivery.
+• Generated voice feedback using Google Cloud TTS for an interactive, human-like
+experience.
+• Built with FastAPI and stored session data and analysis results in MongoDB, deployed
+on GCP for scalability.
