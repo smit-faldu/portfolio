@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { parseResume } from '../../utils/resumeParser';
 
@@ -60,32 +61,16 @@ const About = () => {
               y: y1,
               x: mousePosition.x * -20 // Subtle mouse movement effect
             }}
+            className="relative w-full h-80 md:h-96"
           >
-            <div className="relative w-full h-80 md:h-96 rounded-lg overflow-hidden bg-accent bg-opacity-10 border border-accent border-opacity-20">
-              <motion.div 
-                className="absolute inset-0 flex items-center justify-center text-accent"
-                style={{
-                  x: mousePosition.x * 30, // More pronounced movement for the icon
-                  y: mousePosition.y * 30
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-24 w-24 opacity-50"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1}
-                    d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-              </motion.div>
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background to-transparent h-1/3"></div>
-            </div>
+            <Image
+              src="/profile.jpg"
+              alt={`A photo of ${resumeData.name}`}
+              fill
+              className="rounded-lg border border-accent border-opacity-20 object-cover object-center shadow-lg"
+              priority
+            />
+            <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-background via-transparent to-transparent"></div>
           </motion.div>
 
           <motion.div
