@@ -13,7 +13,7 @@
     {
       "title": "AI/ML Intern",
       "company": "VertxAI",
-      "period": "Mar-2025 - Present",
+      "period": "Mar-2025 - Aug-2025",
       "responsibilities": [
         "Developed AI automation pipelines using Google Gemini, LangChain, LangGraph, and Hugging Face for founder-investor matching and email outreach.",
         "Built FastAPI-based backend services for scalable LLM-powered applications, deployed on GCP.",
@@ -27,6 +27,7 @@
       "Python", 
       "LangChain", 
       "LangGraph", 
+      "AutoGen",
       "Hugging Face", 
       "FastAPI",
       "Flask", 
@@ -68,13 +69,13 @@
   ],
   "projects": [
     {
-      "title": "AI Email Automation",
-      "technologies": ["FastAPI", "Gemini (LLM)", "LangChain", "Google OAuth", "Gmail API", "MongoDB", "GCP"],
+      "title": "AI-powered Mock Pitch Voice Agent",
+      "technologies": ["Gemini", "LangGraph", "FastAPI", "Whisper", "Google Cloud TTS", "MongoDB", "GCP"],
       "description": [
-        "Developed an AI-powered email automation platform using FastAPI, Gemini, and LangChain to generate personalized investor outreach emails.",
-        "Integrated Google OAuth and Gmail API for secure sending, drafting, and flexible scheduling (specific time or N emails/day).",
-        "Implemented reply fetching, batching logic, and user-specific campaign tracking with MongoDB for robust email management.",
-        "Deployed the full-stack system on Google Cloud for scalable access, reliability, and real-time performance."
+        "Developed a voice-based AI agent to help founders practice mock pitches with realistic investor-style feedback.",
+        "Used Whisper for speech recognition and Gemini + LangGraph to analyze pitch content and delivery.",
+        "Generated voice feedback using Google Cloud TTS for an interactive, human-like experience.",
+        "Built with FastAPI and stored session data and analysis results in MongoDB, deployed on GCP for scalability."
       ]
     },
     {
@@ -88,6 +89,36 @@
       ]
     },
     {
+      "title": "ArXiv Research Agent",
+      "technologies": ["AutoGen", "Gemini (LLM)", "Hugging Face Transformers", "Streamlit"],
+      "description": [
+        "Built an AI-powered multi-agent research assistant using AutoGen, capable of retrieving, summarizing, and answeringquestions on ArXiv papers.",
+        "Designed a multi-agent architecture where specialized agents handled retrieval and summarization collaboratively.",
+        "Leveraged LLMs for paper understanding and concise, user-friendly outputs.",
+        "Developed an interactive Streamlit interface, enabling seamless research exploration and structured outputs(JSON/Markdown).",
+        "Containerized with Docker and deployed on Hugging Face Spaces for public accessibility and reproducibility."
+      ]
+    },
+    {
+      "title": "DataAnalyzerAI",
+      "technologies": ["AutoGen", "Gemini (LLM)", "Hugging Face Transformers", "Streamlit"],
+      "description": [
+        "Built an AutoGen-based multi-agent system that lets users upload CSV/JSON data and query it in natural language.",
+        "Implemented agents that generate, execute, and return Python code to produce analysis and graph visualizationsautomatically.",
+        "Delivered an end-to-end data exploration tool with reproducible results using Dockerized deployment"
+      ]
+    },
+    {
+      "title": "AI Email Automation",
+      "technologies": ["FastAPI", "Gemini (LLM)", "LangChain", "Google OAuth", "Gmail API", "MongoDB", "GCP"],
+      "description": [
+        "Developed an AI-powered email automation platform using FastAPI, Gemini, and LangChain to generate personalized investor outreach emails.",
+        "Integrated Google OAuth and Gmail API for secure sending, drafting, and flexible scheduling (specific time or N emails/day).",
+        "Implemented reply fetching, batching logic, and user-specific campaign tracking with MongoDB for robust email management.",
+        "Deployed the full-stack system on Google Cloud for scalable access, reliability, and real-time performance."
+      ]
+    },
+    {
       "title": "Pitch Deck Analyzer",
       "technologies": ["LangGraph", "Gemini", "LangChain", "FastAPI", "MongoDB", "GCP"],
       "description": [
@@ -95,16 +126,6 @@
         "Designed a LangGraph workflow to generate multi-layered analysis, including overall ratings, problem–solution evaluation, and executive summaries.",
         "Integrated strengths and weaknesses assessment along with improvement suggestions using structured prompting via LangChain.",
         "Stored analysis reports in MongoDB and deployed the full system on Google Cloud for scalable and efficient access."
-      ]
-    },
-    {
-      "title": "AI-powered Mock Pitch Voice Agent",
-      "technologies": ["Gemini", "LangGraph", "FastAPI", "Whisper", "Google Cloud TTS", "MongoDB", "GCP"],
-      "description": [
-        "Developed a voice-based AI agent to help founders practice mock pitches with realistic investor-style feedback.",
-        "Used Whisper for speech recognition and Gemini + LangGraph to analyze pitch content and delivery.",
-        "Generated voice feedback using Google Cloud TTS for an interactive, human-like experience.",
-        "Built with FastAPI and stored session data and analysis results in MongoDB, deployed on GCP for scalability."
       ]
     }
   ]
