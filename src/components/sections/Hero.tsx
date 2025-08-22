@@ -93,7 +93,7 @@ const Hero = () => {
               <span className="absolute inset-0 bg-accent bg-opacity-5 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
             </motion.a>
             <motion.a
-              href="https://drive.google.com/file/d/1LysF1wZ8-3nH7qB10LBWxqXEaPX1R6uQ/view?usp=sharing"
+              href="https://drive.google.com/file/d/1w33qgoH4p-hq40HoRrGPa5VjFlBeM-tS/view?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-3 bg-secondary text-primary font-medium rounded-md hover:bg-opacity-80 transition-all duration-300 relative overflow-hidden group"
