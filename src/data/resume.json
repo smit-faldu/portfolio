@@ -1,0 +1,61 @@
+{
+  "personal": {
+    "name": "Smit Faldu",
+    "title": "AI/ML Engineer",
+    "summary": "Specializing in Generative AI, LLMs, and Agentic AI systems. Building architectures that seamlessly bridge deterministic workflows and neural cognition.",
+    "links": {
+      "github": "https://github.com/smit-faldu",
+      "linkedin": "https://www.linkedin.com/in/smit-faldu-450b9a23a/",
+      "resume": "https://drive.google.com/file/d/1w33qgoH4p-hq40HoRrGPa5VjFlBeM-tS/view",
+      "email": "smitfaldu2006@gmail.com"
+    }
+  },
+  "experience": [
+    {
+      "company": "VertxAI",
+      "role": "AI/ML Intern",
+      "date": "March 2025 - August 2025",
+      "points": [
+        {
+          "title": "Generative AI Pipeline Development",
+          "description": "Designed and implemented LangChain & LangGraph based workflows to enable complex multi-agent reasoning and automation using RAG architecture."
+        },
+        {
+          "title": "Backend Services & Scalability",
+          "description": "Built and deployed highly scalable FastAPI backend services integrated with GCP Cloud Run and Docker, minimizing latency in production workloads."
+        },
+        {
+          "title": "Vector DB Optimization",
+          "description": "Optimized FAISS vector database retrieval and embeddings pipelines to significantly boost accuracy in large scale environments."
+        }
+      ]
+    }
+  ],
+  "skills": [
+    "Python", "JavaScript", "SQL", "LangChain", "LangGraph", "AutoGen", 
+    "FastAPI", "TensorFlow", "PyTorch", "Hugging Face", "FAISS", 
+    "React", "Docker", "GCP"
+  ],
+  "projects": [
+    {
+      "title": "AI Mock Pitch Agent",
+      "description": "An AI-driven voice agent to simulate startup pitch Q&A sessions. Built using LangChain+LangGraph workflows, FastAPI WebSockets, and ElevenLabs TTS.",
+      "tech": ["Python", "FastAPI", "LangChain", "WebSockets", "MongoDB"]
+    },
+    {
+      "title": "Founder-Investor Matrix",
+      "description": "AI matching engine connecting founders to investors via semantic search. Used FAISS vector database to retrieve the best matches contextually.",
+      "tech": ["LangGraph", "FAISS", "MongoDB", "GCP", "Python"]
+    },
+    {
+      "title": "ArXiv Research Agent",
+      "description": "Multi-agent research assistant built with AutoGen. Agents collaborate to retrieve, summarize, and query ArXiv academic papers seamlessly.",
+      "tech": ["AutoGen", "LLM", "Docker", "Hugging Face"]
+    },
+    {
+      "title": "DataAnalyzerAI",
+      "description": "Data exploration system interacting via natural language. Agents generate, execute, and return Python code to produce analysis automatically.",
+      "tech": ["AutoGen", "Streamlit", "Python", "Data Analysis"]
+    }
+  ]
+}

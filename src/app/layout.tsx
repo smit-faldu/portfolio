@@ -1,30 +1,33 @@
-import './globals.css';
-import '../styles/background-effects.css';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
 
-const inter = Inter({
-  subsets: ['latin'],
-  variable: '--font-inter',
-  display: 'swap',
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: 'Smit Faldu | AI/ML Engineer',
-  description: 'AI/ML Engineer with hands-on experience in NLP, LLMs, and RAG pipelines',
-  keywords: ['portfolio', 'AI Engineer', 'ML Engineer', 'developer', 'Smit Faldu'],
+  title: "Smit Faldu | AI Engineer",
+  description: "Portfolio of Smit Faldu, AI/ML Engineer specializing in Generative AI, LLMs, and Agentic AI systems.",
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html lang="en" className={`${inter.variable} scroll-smooth`}>
-      <body className="bg-background text-primary min-h-screen">
-        {children}
-      </body>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased bg-black text-white`}
+    >
+      <body className="min-h-full bg-black">{children}</body>
     </html>
   );
 }

@@ -1,0 +1,38 @@
+"use client";
+
+import { motion } from "framer-motion";
+
+import resumeData from "@/data/resume.json";
+
+export default function Projects() {
+  return (
+    <section className="py-24 px-8 md:px-24 max-w-7xl mx-auto mix-blend-difference w-full relative z-10">
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
+      >
+        <h3 className="text-sm font-mono text-white/40 tracking-widest uppercase mb-16 border-t border-white/10 pt-10">02 / Projects</h3>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-24">
+          {resumeData.projects.map((proj, idx) => (
+            <div key={idx} className="group cursor-default">
+              <h4 className="text-2xl font-medium text-white mb-4 group-hover:text-white/80 transition-colors">{proj.title}</h4>
+              <p className="text-white/50 font-light leading-relaxed mb-6 h-auto md:h-24">
+                {proj.description}
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {proj.tech.map((t) => (
+                  <span key={t} className="text-xs font-mono text-white/30 tracking-wider">
+                    [{t}]
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+    </section>
+  );
+}
