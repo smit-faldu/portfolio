@@ -119,15 +119,34 @@ export default function Scene() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    handleResize(); // Check immediately
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const checkDevice = () => {
+      if (typeof window === "undefined") return;
+      
+      // 1. Normal mobile screen check
+      const isSmallScreen = window.innerWidth < 768;
+      
+      // 2. Touch capability check (Hardware-level, works even in "Desktop Site" mode)
+      const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      
+      // 3. User Agent check (Catches standard mobile browsers)
+      const isMobileUA = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+      
+      // 4. The "Desktop Mode" Trap: 
+      // Phones requesting desktop sites usually spoof a width around 980-1024px.
+      // If it has a touch screen and is 1024px or less, it's almost certainly a mobile device spoofing a desktop.
+      const isPhoneInDesktopMode = hasTouch && window.innerWidth <= 1024;
+
+      // If ANY of these are true, lock it to the low-poly/cheap-glass mobile profile.
+      setIsMobile(isSmallScreen || isMobileUA || isPhoneInDesktopMode);
+    };
+
+    checkDevice(); 
+    window.addEventListener("resize", checkDevice);
+    return () => window.removeEventListener("resize", checkDevice);
   }, []);
 
   return (
     <Canvas
-      // 4. DPR Capping: Forces high-res phones to render at 1x-1.5x resolution instead of 3x. This stops the melting.
       dpr={[1, 1.5]}
       camera={{ position: [0, 0, isMobile ? 12 : 9], fov: 50 }}
       gl={{ antialias: !isMobile, alpha: true, powerPreference: "high-performance" }}
