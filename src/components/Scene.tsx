@@ -76,13 +76,15 @@ function QuantumMonolith({ isMobile }: { isMobile: boolean }) {
             {/* 3. The Big Saver: Cheap native glass for mobile, complex shader for desktop */}
             {isMobile ? (
               <meshPhysicalMaterial
-                color="#a0a0a0"
-                transmission={1}
-                opacity={1}
-                metalness={0}
+                color="#002d76"
+                transparent={true}      /* Critical for seeing inside */
+                opacity={0.15}          /* Lowered so the inner geometry is visible */
+                transmission={0.5}      /* Reduced to stop blown-out light reflections */
+                metalness={0.2}         /* Slight metalness gives the glass a nicer edge */
                 roughness={0.1}
                 ior={1.2}
                 thickness={1}
+                depthWrite={false}      /* Prevents z-fighting with the rings inside */
               />
             ) : (
               <MeshTransmissionMaterial
