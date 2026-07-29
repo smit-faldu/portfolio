@@ -1,0 +1,290 @@
+{
+  "_readme": [
+    "This file is the only place you need to edit. Everything on the site is",
+    "generated from it — add a project, a skill group or a role here and the",
+    "page picks it up on the next build. No component changes required.",
+    "",
+    "Formatting you can use inside any title or statement line:",
+    "  *word*  → sets that word in the editorial italic serif",
+    "  |       → forces a line break (section titles only)",
+    "",
+    "Numbering is automatic. Projects are numbered 01, 02, 03… in the order",
+    "they appear below; skill groups are lettered A, B, C… the same way.",
+    "Leave \"repo\" or \"demo\" as an empty string and the link is simply not",
+    "rendered — nothing breaks, the button just does not appear.",
+    "",
+    "Exactly one project may set \"featured\": true. It gets the oversized",
+    "treatment and opens expanded."
+  ],
+
+  "site": {
+    "url": "https://smitfaldu.dev"
+  },
+
+  "person": {
+    "name": "Smit Faldu",
+    "role": "AI / ML Engineer",
+    "focus": "Agentic Systems",
+    "location": "Ahmedabad, Gujarat, India",
+    "locationShort": "Ahmedabad, IN",
+    "timezone": "Asia/Kolkata",
+    "timezoneAbbr": "IST",
+
+    "statement": ["I build systems", "that *reason*, retrieve,", "and act."],
+
+    "intro": "AI/ML engineer working on generative and agentic systems — multi-agent frameworks, retrieval-augmented pipelines and autonomous workflows, built with LangChain, LangGraph and AutoGen, and shipped as FastAPI services on GCP.",
+
+    "currently": "Building agentic systems and shipping them as services. Most recently AI/ML at VertxAI.",
+
+    "summary": "AI/ML Engineer specializing in Generative AI, LLMs, and Agentic AI systems with expertise in building multi-agent frameworks, RAG pipelines, and autonomous workflows. Skilled in Python, LangChain, LangGraph, AutoGen, and FastAPI, with experience deploying scalable AI solutions on cloud platforms.",
+
+    "discipline": "AI/ML engineer specialising in Generative AI, LLMs and Agentic AI systems.",
+
+    "span": "2021 — Present",
+
+    "ambition": "Focused on next-generation intelligent systems that combine reasoning, retrieval, and human–AI collaboration.",
+
+    "knowsAbout": [
+      "Generative AI",
+      "Agentic AI Systems",
+      "Large Language Models",
+      "Retrieval-Augmented Generation",
+      "Multi-Agent Architectures",
+      "Natural Language Processing"
+    ]
+  },
+
+  "contact": {
+    "email": "smitfaldu2006@gmail.com",
+    "phone": "+91 8140950661",
+    "note": "Fastest way to reach me. Happy to talk about agentic architectures, retrieval pipelines, or anything adjacent.",
+    "github": { "handle": "smit-faldu", "url": "https://github.com/smit-faldu" },
+    "linkedin": {
+      "handle": "smit-faldu",
+      "url": "https://www.linkedin.com/in/smit-faldu"
+    }
+  },
+
+  "sections": {
+    "work": {
+      "label": "Selected Work",
+      "title": "Systems, not|demos.",
+      "lede": "Each of these was designed, built and deployed end to end — agent orchestration, retrieval, API surface and infrastructure.",
+      "outro": "End of catalogue",
+      "outroLink": "More on GitHub"
+    },
+    "capabilities": {
+      "label": "Capabilities",
+      "title": "The working set.",
+      "lede": "Grouped by the part of the system they belong to, not by how impressive they look in a list.",
+      "practiceLabel": "Ways of working"
+    },
+    "trajectory": {
+      "label": "Trajectory",
+      "title": "Where the work has been.",
+      "lede": "Focused on next-generation intelligent systems that combine reasoning, retrieval, and human–AI collaboration."
+    },
+    "contact": {
+      "label": "Contact",
+      "title": "Have something|worth *building*?"
+    }
+  },
+
+  "projects": [
+    {
+      "title": "Mock Pitch Voice Agent",
+      "featured": true,
+      "summary": "A real-time voice agent that runs investor Q&A sessions, so founders can rehearse the pitch before it counts.",
+      "problem": "Founders get one shot at an investor conversation and almost no way to rehearse the unscripted half of it — the questions. The system simulates that pressure: it listens, interrogates, adapts, and reports back.",
+      "approach": [
+        "Agentic conversation flow built on LangChain and LangGraph, handling context-aware questioning, evaluation and adaptive branching as the pitch develops.",
+        "Speech-to-text via Whisper and text-to-speech via ElevenLabs, wired into a continuous real-time loop rather than a turn-based transcript.",
+        "FastAPI backend with WebSocket streaming to keep round-trip latency low enough for the exchange to feel conversational.",
+        "Conversation data persisted and analysed in MongoDB, turning each session into performance tracking and feedback signal.",
+        "Containerised with Docker and deployed on GCP Cloud Run, with a modular architecture that keeps new capabilities additive."
+      ],
+      "discipline": "Agentic AI · Voice Interface",
+      "stack": [
+        "Python",
+        "FastAPI",
+        "LangChain",
+        "LangGraph",
+        "WebSockets",
+        "Whisper",
+        "ElevenLabs TTS",
+        "MongoDB",
+        "Docker",
+        "GCP"
+      ],
+      "deployment": "GCP Cloud Run",
+      "year": "2025",
+      "repo": "",
+      "demo": ""
+    },
+    {
+      "title": "Founder–Investor Matching Engine",
+      "summary": "A semantic matching system that ranks the investors most likely to fund a given founder, from embeddings rather than keywords.",
+      "problem": "Founder–investor fit is a semantic problem wearing a search-box disguise. Keyword filters miss thesis alignment; the engine reasons over profiles instead of matching strings.",
+      "approach": [
+        "LangChain and LangGraph pipelines covering query understanding, ranking logic and multi-agent reasoning to improve match quality beyond a single similarity pass.",
+        "FAISS vector index retrieving the top 100 candidate investors per founder profile from contextual embeddings.",
+        "FastAPI backend with WebSocket streaming, keeping the interaction responsive as results resolve.",
+        "Match results stored in MongoDB so investor–founder interactions can be tracked, filtered and analysed over time.",
+        "Containerised with Docker and deployed on GCP Cloud Run for production-ready scale."
+      ],
+      "discipline": "Retrieval · Multi-Agent Reasoning",
+      "stack": [
+        "Python",
+        "LangChain",
+        "LangGraph",
+        "FAISS",
+        "MongoDB",
+        "Docker",
+        "GCP"
+      ],
+      "deployment": "GCP Cloud Run",
+      "year": "2025",
+      "repo": "",
+      "demo": ""
+    },
+    {
+      "title": "ArXiv Research Agent",
+      "summary": "A multi-agent research assistant that retrieves, summarises and answers questions across ArXiv papers.",
+      "problem": "Keeping current with a fast-moving field is a retrieval problem and a comprehension problem at once. Splitting those across specialised agents produces better answers than asking one model to do both.",
+      "approach": [
+        "Multi-agent architecture in AutoGen, with separate agents collaborating on retrieval and on summarisation.",
+        "LLM-driven paper understanding, distilled into concise outputs written for a reader rather than a benchmark.",
+        "Interactive Streamlit interface producing structured results in JSON and Markdown for downstream use.",
+        "Containerised with Docker and published on Hugging Face Spaces for public access and reproducibility."
+      ],
+      "discipline": "Multi-Agent Research Systems",
+      "stack": [
+        "Python",
+        "AutoGen",
+        "Hugging Face Transformers",
+        "Streamlit",
+        "Docker"
+      ],
+      "deployment": "Hugging Face Spaces",
+      "year": "2025",
+      "repo": "",
+      "demo": ""
+    },
+    {
+      "title": "DataAnalyzerAI",
+      "summary": "Upload a CSV or JSON file, ask a question in plain language, and get back executed analysis with charts.",
+      "problem": "The distance between having data and understanding it is usually a Python session. This collapses that into a sentence.",
+      "approach": [
+        "AutoGen multi-agent system that accepts CSV/JSON uploads and interprets natural-language queries against them.",
+        "Agents generate, execute and return Python code, producing analysis and graph visualisations without user intervention.",
+        "End-to-end exploration tool with reproducible results, packaged through Dockerised deployment."
+      ],
+      "discipline": "Agentic Data Analysis",
+      "stack": ["Python", "AutoGen", "LLM", "Streamlit", "Docker"],
+      "deployment": "Hugging Face Spaces",
+      "year": "2025",
+      "repo": "",
+      "demo": ""
+    }
+  ],
+
+  "capabilities": [
+    {
+      "title": "Agentic Systems",
+      "note": "Orchestration, state and control flow across cooperating agents.",
+      "items": [
+        "LangGraph",
+        "AutoGen",
+        "LangChain",
+        "Multi-Agent Architectures",
+        "Autonomous Workflows",
+        "Tool Use & Routing"
+      ]
+    },
+    {
+      "title": "Generative AI & LLMs",
+      "note": "Model integration, conversation design and language understanding.",
+      "items": [
+        "Large Language Models",
+        "Hugging Face Transformers",
+        "Conversational AI",
+        "Natural Language Processing",
+        "Whisper (STT)",
+        "ElevenLabs (TTS)"
+      ]
+    },
+    {
+      "title": "Retrieval & Data",
+      "note": "Getting the right context in front of the model, quickly.",
+      "items": [
+        "RAG Pipelines",
+        "FAISS",
+        "Embeddings",
+        "MongoDB",
+        "SQL",
+        "Pandas",
+        "NumPy"
+      ]
+    },
+    {
+      "title": "ML Foundations",
+      "note": "The layer underneath the abstractions.",
+      "items": ["PyTorch", "TensorFlow", "Scikit-learn"]
+    },
+    {
+      "title": "Backend & Services",
+      "note": "Shipping models as systems other software can call.",
+      "items": ["Python", "FastAPI", "WebSockets", "REST APIs", "Playwright"]
+    },
+    {
+      "title": "Infrastructure",
+      "note": "Reproducible builds, scalable deploys, fast iteration.",
+      "items": ["Docker", "GCP Cloud Run", "Hugging Face Spaces", "CI/CD"]
+    },
+    {
+      "title": "Interfaces",
+      "note": "Enough front-end to make the system usable.",
+      "items": ["Streamlit", "JavaScript", "React", "Tailwind CSS"]
+    }
+  ],
+
+  "practice": [
+    "Problem-Solving",
+    "Research & Experimentation",
+    "Rapid Prototyping",
+    "Critical Thinking",
+    "Collaboration",
+    "Adaptability"
+  ],
+
+  "experience": [
+    {
+      "period": "Mar 2025 — Aug 2025",
+      "title": "AI/ML Intern",
+      "organisation": "VertxAI",
+      "location": "Remote · India",
+      "detail": [
+        "Contributed to Generative AI and Agentic AI pipelines, focused on LLM integration and retrieval-augmented generation.",
+        "Designed and implemented LangChain- and LangGraph-based workflows enabling multi-agent reasoning and task automation.",
+        "Built and deployed FastAPI backend services for AI-powered applications, with scalability and performance as constraints.",
+        "Optimised FAISS vector retrieval and embeddings pipelines, improving accuracy and latency in production workloads.",
+        "Worked with senior engineers to deploy on GCP (Cloud Run, Docker) and integrate CI/CD practices for faster experimentation."
+      ]
+    }
+  ],
+
+  "education": [
+    {
+      "period": "May 2024 — Present",
+      "title": "B.Tech, Computer Engineering",
+      "organisation": "SAL Institute of Technology & Engineering Research",
+      "location": "Ahmedabad, Gujarat"
+    },
+    {
+      "period": "Aug 2021 — May 2024",
+      "title": "Diploma, Computer Engineering",
+      "organisation": "Government Polytechnic, Ahmedabad",
+      "location": "Ahmedabad, Gujarat"
+    }
+  ]
+}

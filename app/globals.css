@@ -1,26 +1,411 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/*
+ * ─────────────────────────────────────────────────────────────────────────────
+ * THE INDEX — design system
+ * Engineering documentation as editorial object.
+ * Dark-only. One accent (signal amber). Structure over ornament.
+ * ─────────────────────────────────────────────────────────────────────────────
+ */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: dark;
+
+  /* ── Surface ramp ─────────────────────────────────────────────── */
+  --ink-900: #08090a; /* page */
+  --ink-850: #0b0d0e; /* recessed */
+  --ink-800: #101314; /* surface */
+  --ink-750: #16191b; /* surface raised */
+  --ink-700: #1d2123; /* surface hover */
+
+  /* ── Text ramp ────────────────────────────────────────────────── */
+  --fg-1: #e9ecee; /* primary            ~16.8:1 */
+  --fg-2: #9ca3a8; /* secondary          ~8.5:1  */
+  --fg-3: #767d82; /* metadata           ~5.0:1  */
+  --fg-4: #4a5155; /* decorative only            */
+
+  /* ── Rules & edges ────────────────────────────────────────────── */
+  --rule: rgb(233 236 238 / 0.06); /* drafting hairlines */
+  --edge: rgb(233 236 238 / 0.11); /* component borders  */
+  --edge-2: rgb(233 236 238 / 0.2); /* emphasis           */
+
+  /* ── Signal ───────────────────────────────────────────────────── */
+  --signal: #f0b341;
+  --signal-dim: #a8792a;
+  --signal-wash: rgb(240 179 65 / 0.12);
+
+  /* ── Rhythm ───────────────────────────────────────────────────── */
+  --shell: 1560px;
+  --gutter: clamp(1.25rem, 4vw, 4.5rem);
+  --section-y: clamp(5.5rem, 13vh, 10.5rem);
+  --nav-h: 4.25rem;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ── shadcn semantic bridge (remapped onto the ramp above) ────── */
+  --radius: 0.25rem;
+  --background: var(--ink-900);
+  --foreground: var(--fg-1);
+  --card: var(--ink-800);
+  --card-foreground: var(--fg-1);
+  --popover: var(--ink-800);
+  --popover-foreground: var(--fg-1);
+  --primary: var(--signal);
+  --primary-foreground: var(--ink-900);
+  --secondary: var(--ink-750);
+  --secondary-foreground: var(--fg-1);
+  --muted: var(--ink-800);
+  --muted-foreground: var(--fg-3);
+  --accent: var(--ink-750);
+  --accent-foreground: var(--fg-1);
+  --destructive: #e5484d;
+  --border: var(--edge);
+  --input: var(--edge);
+  --ring: var(--signal);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-ink-900: var(--ink-900);
+  --color-ink-850: var(--ink-850);
+  --color-ink-800: var(--ink-800);
+  --color-ink-750: var(--ink-750);
+  --color-ink-700: var(--ink-700);
+
+  --color-fg-1: var(--fg-1);
+  --color-fg-2: var(--fg-2);
+  --color-fg-3: var(--fg-3);
+  --color-fg-4: var(--fg-4);
+
+  --color-rule: var(--rule);
+  --color-edge: var(--edge);
+  --color-edge-2: var(--edge-2);
+  --color-signal: var(--signal);
+  --color-signal-dim: var(--signal-dim);
+
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-heading: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* ═══════════════════════════════════════════════════════════════════ base */
+
+@layer base {
+  * {
+    border-color: var(--edge);
+  }
+
+  html {
+    background: var(--ink-900);
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--nav-h) + 1.5rem);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background: var(--ink-900);
+    color: var(--fg-1);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    /* Guards against horizontal bleed from oversized display type. */
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: var(--signal);
+    color: var(--ink-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--signal);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  /* Restrained scrollbar — present, but part of the sheet. */
+  @supports (scrollbar-width: thin) {
+    html {
+      scrollbar-width: thin;
+      scrollbar-color: var(--ink-700) var(--ink-900);
+    }
+  }
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--ink-900);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--ink-700);
+    border: 3px solid var(--ink-900);
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--fg-4);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* ═══════════════════════════════════════════════════════ type + utilities */
+
+@layer components {
+  /* ── Shell ──────────────────────────────────────────────────────── */
+  .shell {
+    width: 100%;
+    max-width: var(--shell);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  /* ── Display scale ──────────────────────────────────────────────── */
+  .t-display {
+    font-family: var(--font-sans);
+    font-size: clamp(2.75rem, 10.5vw, 9.5rem);
+    font-weight: 500;
+    line-height: 0.86;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+  }
+
+  .t-h1 {
+    font-family: var(--font-sans);
+    font-size: clamp(2.125rem, 6vw, 5rem);
+    font-weight: 500;
+    line-height: 0.94;
+    letter-spacing: -0.035em;
+  }
+
+  .t-h2 {
+    font-family: var(--font-sans);
+    font-size: clamp(1.625rem, 3.4vw, 2.875rem);
+    font-weight: 500;
+    line-height: 1.02;
+    letter-spacing: -0.028em;
+  }
+
+  .t-h3 {
+    font-family: var(--font-sans);
+    font-size: clamp(1.125rem, 1.7vw, 1.5rem);
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.018em;
+  }
+
+  .t-lead {
+    font-size: clamp(1.0625rem, 1.35vw, 1.3125rem);
+    line-height: 1.55;
+    letter-spacing: -0.012em;
+    color: var(--fg-2);
+    text-wrap: pretty;
+  }
+
+  .t-body {
+    font-size: 0.9375rem;
+    line-height: 1.65;
+    letter-spacing: -0.004em;
+    color: var(--fg-2);
+    text-wrap: pretty;
+  }
+
+  /* ── Mono metadata ──────────────────────────────────────────────── */
+  .t-meta {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 450;
+    line-height: 1.35;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+  }
+
+  .t-meta-sm {
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: 450;
+    line-height: 1.3;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--fg-3);
+  }
+
+  .t-mono {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: var(--fg-2);
+  }
+
+  /* Editorial italic — used sparingly, for one emphasised idea. */
+  .t-editorial {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-weight: 400;
+    letter-spacing: -0.015em;
+  }
+
+  /* ── Rules ──────────────────────────────────────────────────────── */
+  .rule-h {
+    height: 1px;
+    width: 100%;
+    background: var(--rule);
+  }
+
+  /* ── Link with a drawn underline ────────────────────────────────── */
+  .link-draw {
+    position: relative;
+    display: inline-block;
+    color: var(--fg-1);
+    text-decoration: none;
+  }
+  .link-draw::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -0.15em;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.45s var(--ease-out);
+  }
+  .link-draw:hover::after,
+  .link-draw:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* ── Masked line wrapper for text reveals ───────────────────────── */
+  .reveal-mask {
+    display: block;
+    overflow: hidden;
+    /* Descenders would otherwise be clipped by the mask. */
+    padding-bottom: 0.14em;
+    margin-bottom: -0.14em;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════ motion states */
+
+/*
+ * Initial states live in CSS so nothing flashes before hydration.
+ * `MotionProvider` animates from here to the resting state.
+ */
+@layer base {
+  [data-hero-line] > *,
+  [data-reveal="mask"] > * {
+    transform: translateY(108%);
+    will-change: transform;
+  }
+
+  [data-hero-item],
+  [data-reveal]:not([data-reveal="mask"]),
+  [data-reveal-batch] > * {
+    opacity: 0;
+    will-change: opacity, transform;
+  }
+
+  [data-reveal]:not([data-reveal="mask"]) {
+    transform: translateY(26px);
+  }
+
+  [data-reveal-batch] > * {
+    transform: translateY(18px);
+  }
+
+  [data-hero-item] {
+    transform: translateY(14px);
+  }
+
+  [data-hero-rule],
+  [data-rule-draw] {
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+
+  /*
+   * Two escape hatches to the resting state: readers who ask for less motion,
+   * and readers without JavaScript. Neither should be left staring at a blank
+   * page waiting for an animation that will never arrive.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    [data-hero-line] > *,
+    [data-hero-item],
+    [data-reveal],
+    [data-reveal="mask"] > *,
+    [data-reveal-batch] > * {
+      opacity: 1;
+      transform: none;
+      will-change: auto;
+    }
+    [data-hero-rule],
+    [data-rule-draw] {
+      transform: scaleX(1);
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Hides content from AT while remaining focusable — used by skip link. */
+  .sr-only-focusable:not(:focus):not(:focus-within) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 }
