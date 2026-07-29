@@ -14,7 +14,7 @@ export function Capabilities() {
     <section
       id="capabilities"
       aria-labelledby="capabilities-heading"
-      className="relative z-1 bg-ink-850 py-(--section-y)"
+      className="relative z-1 bg-tint-capabilities py-(--section-y)"
     >
       <SectionHeader
         ordinal="02"

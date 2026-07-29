@@ -13,7 +13,7 @@ export function Work() {
     <section
       id="work"
       aria-labelledby="work-heading"
-      className="relative z-1 py-(--section-y)"
+      className="relative z-1 bg-tint-work py-(--section-y)"
     >
       <SectionHeader
         ordinal="01"

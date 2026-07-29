@@ -26,7 +26,7 @@ export function Contact() {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="relative z-1 pt-(--section-y)"
+      className="relative z-1 bg-tint-contact pt-(--section-y)"
     >
       <div className="shell">
         <div data-rule-draw className="h-px w-full bg-[var(--edge)]" aria-hidden />

@@ -13,7 +13,7 @@ export function Trajectory() {
     <section
       id="trajectory"
       aria-labelledby="trajectory-heading"
-      className="relative z-1 py-(--section-y)"
+      className="relative z-1 bg-tint-trajectory py-(--section-y)"
     >
       <SectionHeader
         ordinal="03"

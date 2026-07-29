@@ -36,6 +36,27 @@
   --signal-dim: #a8792a;
   --signal-wash: rgb(240 179 65 / 0.12);
 
+  /*
+   * ── Section tints ─────────────────────────────────────────────
+   * Each chapter is printed on its own stock. Lightness is held
+   * constant at L=0.168 and only the hue rotates — cool at the top
+   * of the document, warm by the time you reach the contact
+   * details. §00 Index keeps the untinted base, so the page opens
+   * on plain black and the tints read as chapters after it.
+   *
+   * Chroma is tuned per hue, not shared: at this lightness the
+   * sRGB gamut is narrow and warm hues read far stronger than cool
+   * ones at equal chroma. Capabilities carries the most, since the
+   * green is meant to be noticed.
+   *
+   * Measured against the text ramp: every tint keeps --fg-3 above
+   * 4.5:1 and the signal above 10:1.
+   */
+  --tint-work: #0b0c0f; /* #0a1016 — cool slate  */
+  --tint-capabilities: #0b0d0e; /* #07120b — green      */
+  --tint-trajectory: #0f0b0c; /* #120e09 — warm amber */
+  --tint-contact: #0f0e0b; /* #150d0c — ember      */
+
   /* ── Rhythm ───────────────────────────────────────────────────── */
   --shell: 1560px;
   --gutter: clamp(1.25rem, 4vw, 4.5rem);
@@ -103,6 +124,11 @@
   --color-edge-2: var(--edge-2);
   --color-signal: var(--signal);
   --color-signal-dim: var(--signal-dim);
+
+  --color-tint-work: var(--tint-work);
+  --color-tint-capabilities: var(--tint-capabilities);
+  --color-tint-trajectory: var(--tint-trajectory);
+  --color-tint-contact: var(--tint-contact);
 
   --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
