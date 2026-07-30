@@ -294,3 +294,5 @@ export const experience: readonly TimelineEntry[] = resume.experience;
 export const education: readonly TimelineEntry[] = resume.education.map(
   (entry) => ({ ...entry, detail: entry.detail ?? [] }),
 );
+
+
