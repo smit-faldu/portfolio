@@ -155,7 +155,20 @@
 
   html {
     background: var(--ink-900);
-    scroll-behavior: smooth;
+    /*
+     * Deliberately no `scroll-behavior: smooth`.
+     *
+     * GSAP reads this property when it first takes hold of the scroller and, if
+     * it finds `smooth`, puts it back as an *inline* style once it is done —
+     * which then outranks any rule that tries to switch it off, and leaves the
+     * browser animating the very scroll position ScrollSmoother is writing every
+     * frame. The symptom is a stutter with no obvious cause.
+     *
+     * Nothing is lost by leaving it out. Readers who allow motion get their
+     * smooth anchor scrolling from `SmoothScroll`, and readers who asked for
+     * less motion should be getting instant jumps here regardless — smooth
+     * scrolling is motion too.
+     */
     scroll-padding-top: calc(var(--nav-h) + 1.5rem);
     -webkit-tap-highlight-color: transparent;
   }
@@ -205,9 +218,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    html {
-      scroll-behavior: auto;
-    }
+    /* `scroll-behavior` needs no override here — it is never set to smooth. */
     *,
     *::before,
     *::after {
@@ -236,7 +247,16 @@
     font-weight: 500;
     line-height: 0.86;
     letter-spacing: -0.045em;
-    text-wrap: balance;
+    /*
+     * No `text-wrap: balance` here. The thesis is split into characters by
+     * SplitText, and balancing re-flows the very lines it has just measured.
+     * The authored line breaks already do this job deliberately.
+     *
+     * Kerning is disabled for the same reason: once each glyph is its own
+     * element the browser can no longer kern across the pairs, so leaving it on
+     * means the text shifts the moment it is split.
+     */
+    font-kerning: none;
   }
 
   .t-h1 {
@@ -349,10 +369,27 @@
   }
 
   /* ── Masked line wrapper for text reveals ───────────────────────── */
+  /*
+   * Two masks, one job, at two different moments. `.reveal-mask` is authored
+   * markup and covers the gap before hydration; `.split-line-mask` is generated
+   * by SplitText around each *rendered* line and is what the animation actually
+   * moves against.
+   */
   .reveal-mask {
     display: block;
     overflow: hidden;
     /* Descenders would otherwise be clipped by the mask. */
+    padding-bottom: 0.14em;
+    margin-bottom: -0.14em;
+  }
+
+  .split-line-mask {
+    /*
+     * Same problem as above, now per line: these headings are set below a
+     * line-height of 1, so the glyphs are taller than the box GSAP clips to.
+     * The padding gives descenders somewhere to live inside the clip and the
+     * negative margin hands the space back, keeping the stack on its leading.
+     */
     padding-bottom: 0.14em;
     margin-bottom: -0.14em;
   }
@@ -434,4 +471,85 @@
     clip-path: inset(50%);
     white-space: nowrap;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════ cursor */
+
+/*
+ * Deliberately unlayered.
+ *
+ * `cursor: none` has to beat every `cursor-pointer` utility on the page, and
+ * layer order decides that before specificity ever gets a say — unlayered rules
+ * win against all of them. Nothing else in this file needs that, so nothing
+ * else lives out here.
+ */
+
+/*
+ * `.cursor-root` must not create a stacking context: no position, no z-index,
+ * no opacity, no transform. `mix-blend-mode` below blends against the nearest
+ * isolated ancestor, so anything here would isolate the ring from the page and
+ * quietly turn the effect off. Its children are fixed, so it has no size and
+ * costs no layout.
+ */
+.cursor-root {
+  pointer-events: none;
+}
+
+.cursor-ring,
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 120;
+  border-radius: 999px;
+  pointer-events: none;
+  /* Hidden until the first pointermove reports where the cursor actually is. */
+  visibility: hidden;
+  opacity: 0;
+  will-change: transform;
+}
+
+.cursor-ring {
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--fg-3);
+  /*
+   * Inverts against whatever passes beneath it, so a single ring stays legible
+   * on the page ground, on all four section tints and on the amber alike —
+   * without a second element or a colour to keep in sync.
+   */
+  mix-blend-mode: difference;
+}
+
+.cursor-dot {
+  width: 5px;
+  height: 5px;
+  background: var(--fg-1);
+  mix-blend-mode: difference;
+}
+
+.cursor-ring.is-labelled {
+  background: var(--signal);
+  border-color: var(--signal);
+  /* A label has to be readable, and difference would scramble it. */
+  mix-blend-mode: normal;
+}
+
+.cursor-label {
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-900);
+  white-space: nowrap;
+  visibility: hidden;
+  opacity: 0;
+}
+
+/* Set only while the custom cursor is genuinely on screen and tracking. */
+html.cursor-custom,
+html.cursor-custom * {
+  cursor: none;
 }

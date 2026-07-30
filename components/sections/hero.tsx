@@ -33,7 +33,16 @@ export function Hero() {
       <div className="shell pt-10 md:pt-16">
         <div data-hero-rule className="h-px w-full bg-[var(--edge)]" aria-hidden />
 
-        <dl className="grid grid-cols-2 gap-x-6 gap-y-6 pt-4 md:grid-cols-4">
+        {/*
+          `data-speed` is read by ScrollSmoother: below 1 the masthead falls
+          behind the page as you scroll, above 1 the specification below runs
+          ahead of it. The thesis between them holds the true scroll position,
+          so the sheet opens up into three planes on the first scroll.
+        */}
+        <dl
+          data-speed="0.88"
+          className="grid grid-cols-2 gap-x-6 gap-y-6 pt-4 md:grid-cols-4"
+        >
           {/* The name is the first datum on the sheet, and the largest. */}
           <div data-hero-item className="flex flex-col gap-1.5">
             <dt className="t-meta-sm text-fg-4">Name</dt>
@@ -87,7 +96,10 @@ export function Hero() {
       <div className="shell pb-10 md:pb-14">
         <div data-hero-rule className="h-px w-full bg-[var(--edge)]" aria-hidden />
 
-        <div className="grid gap-x-8 gap-y-8 pt-6 md:grid-cols-12">
+        <div
+          data-speed="1.08"
+          className="grid gap-x-8 gap-y-8 pt-6 md:grid-cols-12"
+        >
           <p
             data-hero-item
             className="t-lead col-span-full max-w-[62ch] md:col-span-6 lg:col-span-5"
@@ -121,6 +133,7 @@ export function Hero() {
               href={contact.github.url}
               target="_blank"
               rel="noreferrer noopener"
+              data-cursor-label="Open"
               className="link-draw t-meta text-fg-1"
             >
               GitHub

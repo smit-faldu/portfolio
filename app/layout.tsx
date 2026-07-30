@@ -91,8 +91,18 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      // Opts back into Next's scroll-behaviour override for in-page anchors.
-      data-scroll-behavior="smooth"
+      /*
+       * Deliberately no `data-scroll-behavior="smooth"`.
+       *
+       * That attribute opts into Next's scroll-behaviour override for route
+       * transitions, and it implements it by writing `scroll-behavior: smooth`
+       * as an *inline* style on this element — which outranks every stylesheet
+       * rule, including the one ScrollSmoother needs to switch off. There are no
+       * route transitions on a single-page document to override anyway.
+       *
+       * Anchor scrolling is handled in CSS (`scroll-behavior`) for the native
+       * path, and by `SmoothScroll` when the smoother is running.
+       */
       className={`${archivo.variable} ${instrumentSerif.variable} ${plexMono.variable} antialiased`}
     >
       <head>

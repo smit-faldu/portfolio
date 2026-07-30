@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import { gsap, ScrollSmoother, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
 import { navItems, person, type SectionId } from "@/content/site";
 
@@ -78,9 +78,18 @@ export function Nav() {
     };
     const previous = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    /*
+     * Two locks, because there are two scrollers. When ScrollSmoother is running
+     * the body is not the thing that scrolls, so hiding its overflow does
+     * nothing and the smoother has to be paused instead. When it is not running
+     * — reduced motion, or before hydration — the overflow is the only lock
+     * there is. Whichever is in play, one of these holds the page still.
+     */
+    ScrollSmoother.get()?.paused(true);
     window.addEventListener("keydown", onKey);
     return () => {
       document.body.style.overflow = previous;
+      ScrollSmoother.get()?.paused(false);
       window.removeEventListener("keydown", onKey);
     };
   }, [open]);
@@ -88,96 +97,106 @@ export function Nav() {
   const close = useCallback(() => setOpen(false), []);
 
   return (
-    <header
-      ref={root}
-      className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-colors duration-500",
-        lifted && "bg-[color-mix(in_srgb,var(--ink-900)_84%,transparent)] backdrop-blur-xl",
-      )}
-    >
-      <nav aria-label="Sections" className="shell">
-        <div className="flex h-(--nav-h) items-center justify-between gap-6">
-          <a
-            href="#index"
-            className="group flex items-baseline gap-2.5"
-          >
-            <span className="t-meta text-fg-1 transition-colors group-hover:text-signal">
-              {person.name}
-            </span>
-            <span className="t-meta-sm hidden text-fg-4 sm:inline">
-              {person.role}
-            </span>
-          </a>
+    <>
+      <header
+        ref={root}
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 transition-colors duration-500",
+          lifted && "bg-[color-mix(in_srgb,var(--ink-900)_84%,transparent)] backdrop-blur-xl",
+        )}
+      >
+        <nav aria-label="Sections" className="shell">
+          <div className="flex h-(--nav-h) items-center justify-between gap-6">
+            <a href="#index" className="group flex items-baseline gap-2.5">
+              <span className="t-meta text-fg-1 transition-colors group-hover:text-signal">
+                {person.name}
+              </span>
+              <span className="t-meta-sm hidden text-fg-4 sm:inline">
+                {person.role}
+              </span>
+            </a>
 
-          {/* Desktop entries */}
-          <ul className="hidden items-center gap-7 md:flex">
-            {navItems.map((item) => {
-              const current = active === item.id;
-              return (
-                <li key={item.id}>
-                  <a
-                    href={`#${item.id}`}
-                    aria-current={current ? "true" : undefined}
-                    className="group flex items-baseline gap-2 py-1"
-                  >
-                    <span
-                      className={cn(
-                        "t-meta-sm tabular-nums transition-colors duration-300",
-                        current ? "text-signal" : "text-fg-4",
-                      )}
+            {/* Desktop entries */}
+            <ul className="hidden items-center gap-7 md:flex">
+              {navItems.map((item) => {
+                const current = active === item.id;
+                return (
+                  <li key={item.id}>
+                    <a
+                      href={`#${item.id}`}
+                      aria-current={current ? "true" : undefined}
+                      className="group flex items-baseline gap-2 py-1"
                     >
-                      {item.ordinal}
-                    </span>
-                    <span
-                      className={cn(
-                        "t-meta transition-colors duration-300 group-hover:text-fg-1 group-focus-visible:text-fg-1",
-                        current ? "text-fg-1" : "text-fg-3",
-                      )}
-                    >
-                      {item.label}
-                    </span>
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
+                      <span
+                        className={cn(
+                          "t-meta-sm tabular-nums transition-colors duration-300",
+                          current ? "text-signal" : "text-fg-4",
+                        )}
+                      >
+                        {item.ordinal}
+                      </span>
+                      <span
+                        className={cn(
+                          "t-meta transition-colors duration-300 group-hover:text-fg-1 group-focus-visible:text-fg-1",
+                          current ? "text-fg-1" : "text-fg-3",
+                        )}
+                      >
+                        {item.label}
+                      </span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
 
-          {/* Mobile trigger */}
-          <button
-            type="button"
-            onClick={() => setOpen((value) => !value)}
-            aria-expanded={open}
-            aria-controls="section-index"
-            className="t-meta flex items-center gap-2.5 py-3 pl-1 text-fg-2 transition-colors hover:text-fg-1 md:hidden"
-          >
-            {open ? "Close" : "Index"}
-            <span aria-hidden className="relative block h-2.5 w-3.5">
-              <span
-                className={cn(
-                  "absolute inset-x-0 top-0 h-px bg-current transition-transform duration-300",
-                  open && "translate-y-[5px] rotate-45",
-                )}
-              />
-              <span
-                className={cn(
-                  "absolute inset-x-0 bottom-0 h-px bg-current transition-transform duration-300",
-                  open && "-translate-y-[5px] -rotate-45",
-                )}
-              />
-            </span>
-          </button>
-        </div>
+            {/* Mobile trigger */}
+            <button
+              type="button"
+              onClick={() => setOpen((value) => !value)}
+              aria-expanded={open}
+              aria-controls="section-index"
+              className="t-meta flex items-center gap-2.5 py-3 pl-1 text-fg-2 transition-colors hover:text-fg-1 md:hidden"
+            >
+              {open ? "Close" : "Index"}
+              <span aria-hidden className="relative block h-2.5 w-3.5">
+                <span
+                  className={cn(
+                    "absolute inset-x-0 top-0 h-px bg-current transition-transform duration-300",
+                    open && "translate-y-[5px] rotate-45",
+                  )}
+                />
+                <span
+                  className={cn(
+                    "absolute inset-x-0 bottom-0 h-px bg-current transition-transform duration-300",
+                    open && "-translate-y-[5px] -rotate-45",
+                  )}
+                />
+              </span>
+            </button>
+          </div>
 
-        <div className="relative h-px w-full bg-[var(--rule)]">
-          <span
-            data-nav-progress
-            aria-hidden
-            className="absolute inset-0 origin-left bg-[var(--signal-dim)]"
-          />
-        </div>
-      </nav>
+          <div className="relative h-px w-full bg-[var(--rule)]">
+            <span
+              data-nav-progress
+              aria-hidden
+              className="absolute inset-0 origin-left bg-[var(--signal-dim)]"
+            />
+          </div>
+        </nav>
+      </header>
 
-      {/* Mobile index overlay */}
+      {/*
+        Mobile index overlay — a sibling of the masthead, not a child of it.
+        Once the bar is scrolled it carries `backdrop-filter`, and a filter makes
+        an element the containing block for its fixed-position descendants. Nested
+        inside, this panel's `inset-0 top-(--nav-h)` would resolve against the
+        69px-tall bar instead of the viewport and collapse to a 1px strip — the
+        entries would still be painted, over a page with no backdrop behind them.
+        Out here its containing block is the viewport, as intended.
+
+        `z-40` keeps it above the drafting rules and below the bar, so the Close
+        control stays reachable while the panel is open.
+      */}
       <div
         id="section-index"
         inert={!open}
@@ -210,6 +229,6 @@ export function Nav() {
           ))}
         </ul>
       </div>
-    </header>
+    </>
   );
 }

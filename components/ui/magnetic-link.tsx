@@ -15,11 +15,14 @@ export function MagneticLink({
   href,
   children,
   className,
+  cursorLabel,
   strength = 0.22,
 }: {
   href: string;
   children: ReactNode;
   className?: string;
+  /** Verb shown inside the cursor while this link is under it. */
+  cursorLabel?: string;
   /** Fraction of the cursor offset the link travels. */
   strength?: number;
 }) {
@@ -71,6 +74,7 @@ export function MagneticLink({
     <a
       ref={root}
       href={href}
+      data-cursor-label={cursorLabel}
       className={cn(
         "link-draw will-change-transform",
         className,

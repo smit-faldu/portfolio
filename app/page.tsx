@@ -1,7 +1,9 @@
 import { Footer } from "@/components/layout/footer";
 import { GridRules } from "@/components/layout/grid-rules";
 import { Nav } from "@/components/layout/nav";
+import { Cursor } from "@/components/motion/cursor";
 import { MotionProvider } from "@/components/motion/motion-provider";
+import { SmoothScroll } from "@/components/motion/smooth-scroll";
 import { Capabilities } from "@/components/sections/capabilities";
 import { Contact } from "@/components/sections/contact";
 import { Hero } from "@/components/sections/hero";
@@ -71,20 +73,28 @@ export default function Page() {
         <span className="t-meta text-signal">Skip to content</span>
       </a>
 
+      {/*
+        Everything fixed to the viewport stays outside SmoothScroll: its wrapper
+        is transformed on every frame, and anything inside would be carried
+        along with the page instead of staying put.
+      */}
       <GridRules />
       <Nav />
+      <Cursor />
 
-      <MotionProvider>
-        {/* tabIndex allows the skip link to move focus here, not just scroll. */}
-        <main id="main" tabIndex={-1} className="outline-none">
-          <Hero />
-          <Work />
-          <Capabilities />
-          <Trajectory />
-          <Contact />
-        </main>
-        <Footer />
-      </MotionProvider>
+      <SmoothScroll>
+        <MotionProvider>
+          {/* tabIndex allows the skip link to move focus here, not just scroll. */}
+          <main id="main" tabIndex={-1} className="outline-none">
+            <Hero />
+            <Work />
+            <Capabilities />
+            <Trajectory />
+            <Contact />
+          </main>
+          <Footer />
+        </MotionProvider>
+      </SmoothScroll>
     </>
   );
 }

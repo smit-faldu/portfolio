@@ -1,7 +1,14 @@
 "use client";
 
 import { useRef, type ReactNode } from "react";
-import { EASE, gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
+import {
+  EASE,
+  MOTION_OK,
+  ScrollTrigger,
+  SplitText,
+  gsap,
+  useGSAP,
+} from "@/lib/gsap";
 
 /**
  * The site's only motion controller.
@@ -16,13 +23,16 @@ import { EASE, gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
  * state without waiting on this file at all.
  *
  * Contract:
- *   [data-hero-line]     — hero headline line; its child is masked and raised
+ *   [data-hero-line]     — hero headline line; split to characters and raised
  *   [data-hero-item]     — hero supporting element, faded in after the lines
  *   [data-hero-rule]     — hero hairline, drawn on load
+ *   [data-reveal-group]  — heading whose masked lines reveal as one stagger
  *   [data-reveal]        — rises + fades when scrolled into view
- *   [data-reveal="mask"] — children slide up from behind the element's mask
+ *   [data-reveal="mask"] — a line inside a group; split and masked
  *   [data-reveal-batch]  — direct children reveal together, lightly staggered
  *   [data-rule-draw]     — hairline that draws horizontally on entry
+ *
+ * `[data-speed]` and `[data-lag]` are read by `SmoothScroll`, not here.
  */
 export function MotionProvider({ children }: { children: ReactNode }) {
   const scope = useRef<HTMLDivElement>(null);
@@ -43,52 +53,107 @@ export function MotionProvider({ children }: { children: ReactNode }) {
         gsap.set(q("[data-hero-rule], [data-rule-draw]"), { scaleX: 1 });
       });
 
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
+      mm.add(MOTION_OK, () => {
         /* ── Hero entrance ───────────────────────────────────────────── */
         const heroLines = q("[data-hero-line] > *");
         const heroItems = q("[data-hero-item]");
         const heroRules = q("[data-hero-rule]");
 
-        const intro = gsap.timeline({ defaults: { ease: EASE }, delay: 0.1 });
-
-        if (heroRules.length) {
-          intro.fromTo(
-            heroRules,
-            { scaleX: 0 },
-            { scaleX: 1, duration: 1.1, stagger: 0.07, ease: "power2.inOut" },
-            0,
-          );
-        }
         if (heroLines.length) {
-          intro.fromTo(
-            heroLines,
-            { yPercent: 108, y: 0 },
-            { yPercent: 0, duration: 1.15, stagger: 0.085 },
-            0.05,
-          );
-        }
-        if (heroItems.length) {
-          intro.fromTo(
-            heroItems,
-            { opacity: 0, y: 14 },
-            { opacity: 1, y: 0, duration: 0.85, stagger: 0.07 },
-            0.45,
-          );
+          /*
+           * The thesis is set at display size and wraps differently at every
+           * width, so the mask has to follow the *rendered* lines rather than
+           * the authored ones. SplitText measures them, wraps each in its own
+           * clip, and `autoSplit` re-measures whenever the webfont lands or the
+           * column changes width — returning the timeline from `onSplit` lets
+           * it carry its progress across that re-measure instead of replaying.
+           */
+          SplitText.create(heroLines, {
+            type: "lines,words,chars",
+            mask: "lines",
+            linesClass: "split-line",
+            // The <h1> already carries the full statement for screen readers,
+            // and these spans are aria-hidden; nothing to relabel.
+            aria: "none",
+            autoSplit: true,
+            onSplit(self) {
+              // Hand over from the pre-hydration guard in CSS: the parent stops
+              // being the thing that hides the text, and the characters take
+              // over. Both happen before paint, so there is nothing to see.
+              gsap.set(heroLines, { yPercent: 0, y: 0 });
+
+              const intro = gsap.timeline({
+                defaults: { ease: EASE },
+                delay: 0.12,
+              });
+
+              if (heroRules.length) {
+                intro.fromTo(
+                  heroRules,
+                  { scaleX: 0 },
+                  {
+                    scaleX: 1,
+                    duration: 1.1,
+                    stagger: 0.07,
+                    ease: "power2.inOut",
+                  },
+                  0,
+                );
+              }
+
+              intro.from(
+                self.chars,
+                {
+                  yPercent: 118,
+                  duration: 1,
+                  // Tight enough to read as one gesture sweeping across the
+                  // line, not as fifty separate letters arriving.
+                  stagger: { each: 0.016 },
+                },
+                0.06,
+              );
+
+              if (heroItems.length) {
+                intro.fromTo(
+                  heroItems,
+                  { opacity: 0, y: 14 },
+                  { opacity: 1, y: 0, duration: 0.85, stagger: 0.07 },
+                  0.5,
+                );
+              }
+
+              return intro;
+            },
+          });
         }
 
-        /* ── Masked text reveals ─────────────────────────────────────── */
-        q("[data-reveal='mask']").forEach((el) => {
-          gsap.fromTo(
-            el.children,
-            { yPercent: 108, y: 0 },
-            {
-              yPercent: 0,
-              duration: 1.05,
-              ease: EASE,
-              stagger: 0.07,
-              scrollTrigger: { trigger: el, start: "top 90%", once: true },
-            },
+        /* ── Headings ────────────────────────────────────────────────── */
+        // One stagger per heading, so a two-line title reads as a single
+        // gesture rather than two lines that happen to move at once.
+        q("[data-reveal-group]").forEach((group) => {
+          const lines = gsap.utils.toArray<HTMLElement>(
+            group.querySelectorAll("[data-reveal='mask'] > *"),
           );
+          if (!lines.length) return;
+
+          SplitText.create(lines, {
+            type: "lines",
+            mask: "lines",
+            linesClass: "split-line",
+            aria: "none",
+            autoSplit: true,
+            onSplit(self) {
+              gsap.set(lines, { yPercent: 0, y: 0 });
+
+              return gsap.from(self.lines, {
+                yPercent: 108,
+                duration: 1.05,
+                ease: EASE,
+                stagger: 0.08,
+                scrollTrigger: { trigger: group, start: "top 88%", once: true },
+              });
+            },
+          });
         });
 
         /* ── Rise + fade ─────────────────────────────────────────────── */

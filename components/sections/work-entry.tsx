@@ -43,7 +43,13 @@ export function WorkEntry({ project }: { project: Project }) {
       >
         {/* ── Ordinal ─────────────────────────────────────────────── */}
         <div className="col-span-full flex items-baseline justify-between gap-4 md:col-span-1 md:flex-col md:items-start md:justify-start md:gap-3">
+          {/*
+            The catalogue number drifts slightly ahead of its entry as the page
+            moves — enough to separate the numbering from the text it labels,
+            not enough to read as an animation.
+          */}
           <span
+            data-speed="1.1"
             className={cn(
               "block font-mono leading-none tracking-tight tabular-nums transition-colors duration-500 group-hover/entry:text-signal",
               featured
@@ -132,6 +138,7 @@ export function WorkEntry({ project }: { project: Project }) {
                     href={project.demo}
                     target="_blank"
                     rel="noreferrer noopener"
+                    data-cursor-label="Demo"
                     className="link-draw t-meta text-fg-1"
                   >
                     Live demo
@@ -146,6 +153,7 @@ export function WorkEntry({ project }: { project: Project }) {
                     href={project.repo}
                     target="_blank"
                     rel="noreferrer noopener"
+                    data-cursor-label="Source"
                     className="link-draw t-meta text-fg-1"
                   >
                     Source
@@ -161,7 +169,13 @@ export function WorkEntry({ project }: { project: Project }) {
         </div>
 
         {/* ── Specification ───────────────────────────────────────── */}
+        {/*
+          `data-lag` lets the specification trail the scroll and settle a beat
+          after it stops — the column reads as the lighter, secondary object it
+          is, without changing a single type or colour value.
+        */}
         <dl
+          data-lag="0.14"
           className={cn(
             "col-span-full self-start border-t border-[var(--rule)] pt-5 md:col-start-10 md:col-span-3 md:border-t-0 md:pt-2",
           )}

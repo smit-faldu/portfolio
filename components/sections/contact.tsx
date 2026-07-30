@@ -1,4 +1,5 @@
 import { MaskedText } from "@/components/motion/masked-text";
+import { ScrambleLabel } from "@/components/motion/scramble-label";
 import { MagneticLink } from "@/components/ui/magnetic-link";
 import { RichText } from "@/components/ui/rich-text";
 import { contact, navItems, person, sections } from "@/content/site";
@@ -32,12 +33,16 @@ export function Contact() {
         <div data-rule-draw className="h-px w-full bg-[var(--edge)]" aria-hidden />
         <p className="t-meta flex items-baseline gap-3 pt-4">
           <span className="text-signal">§{ordinal}</span>
-          <span>{sections.contact.label}</span>
+          <ScrambleLabel>{sections.contact.label}</ScrambleLabel>
         </p>
       </div>
 
       <div className="shell pt-16 pb-20 md:pt-24 md:pb-28">
-        <h2 id="contact-heading" className="t-h1 max-w-[16ch] text-balance">
+        {/*
+          No `text-balance`: SplitText measures the rendered lines to mask them,
+          and balancing re-wraps the text after it has been measured.
+        */}
+        <h2 id="contact-heading" data-reveal-group className="t-h1 max-w-[16ch]">
           {sections.contact.titleLines.map((line, index) => (
             <MaskedText key={index}>
               <RichText parts={line} />
@@ -51,6 +56,7 @@ export function Contact() {
             <p className="t-meta-sm text-fg-4">Email</p>
             <MagneticLink
               href={`mailto:${contact.email}`}
+              cursorLabel="Write"
               className="t-h2 inline-flex w-fit max-w-full items-baseline gap-3 break-all text-fg-1"
             >
               {contact.email}
@@ -61,6 +67,7 @@ export function Contact() {
           {/* ── Secondary channels ────────────────────────────────── */}
           <dl
             data-reveal-batch
+            data-lag="0.12"
             className="col-span-full flex flex-col md:col-span-4 md:col-start-9"
           >
             {channels.map((channel) => (
@@ -73,8 +80,12 @@ export function Contact() {
                   <a
                     href={channel.href}
                     {...(channel.href.startsWith("http")
-                      ? { target: "_blank", rel: "noreferrer noopener" }
-                      : {})}
+                      ? {
+                          target: "_blank",
+                          rel: "noreferrer noopener",
+                          "data-cursor-label": "Open",
+                        }
+                      : { "data-cursor-label": "Call" })}
                     className="link-draw t-mono text-fg-1"
                   >
                     {channel.value}
